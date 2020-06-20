@@ -1,5 +1,3 @@
-USE SCHEMA CURRENT_RAW;
-
 CREATE OR REPLACE VIEW SMF 
 COMMENT = 'VIEW TO FETCH THE MOST RECENT RECORDS' 
 AS
@@ -40,7 +38,7 @@ FROM
                     INGESTION_TIME DESC
             ) AS RN
         FROM
-            RAW.SMF
+            PUBLIC.SMF
     )
 WHERE
     RN = 1
