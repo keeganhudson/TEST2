@@ -44,7 +44,7 @@ models:
 snapshots:
   solovis_statestreet_transforms:
     target_schema: 'SNAPSHOTS'
-    target_database: 'SS_{{ env_var("SENV") }}'
+    target_database: 'SOLOVIS_DB'
     strategy: timestamp
 
 seeds:
