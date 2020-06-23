@@ -1,4 +1,4 @@
-{% snapshot security_snapshot %}
+{% snapshot SECURITY_SNAPSHOT %}
 
 {{
     config(
@@ -7,6 +7,6 @@
     )
 }}
 
-select * from {{ source('PUBLIC', 'SMF') }}
+select * from {{ source('CURRENT_RAW', 'SMF') }}
 
 {% endsnapshot %}

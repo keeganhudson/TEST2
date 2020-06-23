@@ -1,4 +1,4 @@
-{% snapshot accountprofile_snapshot %}
+{% snapshot ACCOUNTPROFILE_SNAPSHOT %}
 
 {{
     config(
@@ -7,6 +7,6 @@
     )
 }}
 
-select * from {{ source('PUBLIC', 'ACCOUNTPROFILE') }}
+select * from {{ source('CURRENT_RAW', 'ACCOUNTPROFILE') }}
 
 {% endsnapshot %}

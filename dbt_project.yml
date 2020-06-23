@@ -38,9 +38,68 @@ models:
   solovis_statestreet_transforms:
     DIMENSIONS:
       schema: 'CURATED_DIMENSIONS'
+    FACTS:
+      schema: 'CURATED_FACTS'
 
 snapshots:
   solovis_statestreet_transforms:
     target_schema: 'SNAPSHOTS'
-    target_database: 'SOLOVIS_DB'
+    target_database: 'SS_{{ env_var("SENV") }}'
     strategy: timestamp
+
+seeds:
+  enabled: true
+  quote_columns: true
+  database: 'SOLOVIS_DB'
+  solovis_statestreet_transforms:
+    schema: 'CURATED_DIMENSIONS'
+    CLIENT_DIM:
+      column_types:
+        CLIENT_KEY: BIGINT
+        NAME: VARCHAR(50)
+        EXTERNALCLIENTID: BIGINT
+        LINEAGEKEY: VARCHAR(1000)
+    CURRENCY_DIM:
+      column_types:
+        CURRENCY_KEY: BIGINT
+        CURRENCY_NAME: VARCHAR(50)
+        CURRENCY_CODE: VARCHAR(10)
+        CURRENCY_SYMBOL: VARCHAR(10)
+        COUNTRY_KEY: BIGINT
+    DATA_SOURCE_DIM:
+      column_types:
+        DATA_SOURCE_KEY: BIGINT
+        DATA_SOURCE_NAME: VARCHAR(50)
+        DATA_PROVIDER_NAME: VARCHAR(50)
+    FUND_STATUS_DIM:
+      column_types:
+        FUND_STATUS_KEY: BIGINT
+        FUND_STATUS_NAME: VARCHAR(10)
+      post-hook: "UPDATE {{ this }} SET FUND_STATUS_NAME = '' WHERE FUND_STATUS_NAME IS NULL"
+    FUND_TYPE_DIM:
+      column_types:
+        FUND_TYPE_KEY: BIGINT
+        FUND_TYPE_NAME: VARCHAR(25)
+    ISSUER_DIM:
+      column_types:
+        ISSUER_KEY: BIGINT
+        ISSUER_NAME: VARCHAR(25)
+    SECURITY_TYPE_DIM:
+      column_types:
+        SECURITY_TYPE_KEY: BIGINT
+        SECURITY_TYPE_CODE: VARCHAR(2)
+    EXCHANGE_DIM:
+      column_types:
+        EXCHANGE_KEY: BIGINT
+        EXCHANGE_NAME: VARCHAR(10)
+    COUNTRY_DIM:
+      column_types:
+        COUNTRY_KEY: BIGINT
+        COUNTRY_NAME: VARCHAR(50)
+        COUNTRY_ISO_CODE_2: VARCHAR(2)
+        COUNTRY_ISO_CODE_3: VARCHAR(3) 
+        COUNTRY_ISO_CODE_NUMERIC: BIGINT
+    TRANSACTION_TYPE_DIM:
+      column_types:
+        TRANSACTION_TYPE_KEY: BIGINT
+        TRANSACTION_TYPE_NAME: VARCHAR(2)

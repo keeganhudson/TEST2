@@ -1,3 +1,5 @@
+USE SCHEMA CURRENT_RAW;
+
 CREATE OR REPLACE VIEW FXRATES 
 COMMENT = 'VIEW TO FETCH THE MOST RECENT RECORDS' 
 AS
@@ -21,7 +23,7 @@ FROM
                     INGESTION_TIME DESC
             ) AS RN
         FROM
-            PUBLIC.FXRATES
+            RAW.FXRATES
     )
 WHERE
     RN = 1
